@@ -60,12 +60,11 @@ install_dotfile()
     echo "->Installing $DOTNAME"    
 
     # Handle old file
-    if [[ -e $DOTLINK ]]; then
-        if [[ -h $DOTLINK ]]; then
-            echo " ->Removing: $DOTLINK"
-            rm $DOTLINK
-
-        elif [[ -d $DOTLINK ]]; then 
+    if [[ -h $DOTLINK ]]; then
+    	echo " ->Removing: $DOTLINK"
+        rm $DOTLINK
+    elif [[ -e $DOTLINK ]]; then
+        if [[ -d $DOTLINK ]]; then 
             echo " ->Archiving Directory $DOTLINK"
             mv $DOTLINK $ARCHIVE
         else
