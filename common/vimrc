@@ -46,5 +46,4 @@ filetype on
 "======================="
 
 " Replace mode with "r" or "R" 
-nmap r R 
-
+nmap r R

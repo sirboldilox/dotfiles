@@ -6,7 +6,7 @@
 # selected group to the users $HOME directory
 
 readonly SCRIPTNAME=$(basename $0)
-readonly SCRIPTDIR=$(dirname $(realpath $0))
+readonly SCRIPTDIR=$(dirname $(readlink -f $0))
 
 
 # Script Paramaters
@@ -61,15 +61,15 @@ install_dotfile()
 
     # Handle old file
     if [[ -h $DOTLINK ]]; then
-    	echo " ->Removing: $DOTLINK"
+    	echo " -> Removing: $DOTLINK"
         rm $DOTLINK
     elif [[ -e $DOTLINK ]]; then
         if [[ -d $DOTLINK ]]; then 
             echo " ->Archiving Directory $DOTLINK"
-            mv $DOTLINK $ARCHIVE
+            mv $DOTLINK $ARCHIVE/$DOTNAME
         else
             echo " ->Archiving File: $DOTLINK"
-            mv $DOTLINK $ARCHIVE
+            mv $DOTLINK $ARCHIVE/$DOTNAME
         fi
     fi
 

@@ -3,7 +3,7 @@ if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
 
-PATH=$PATH:$HOME/scripts/bin
+PATH=$PATH:$HOME/scripts/
 
 xhost +local:root > /dev/null 2>&1
 

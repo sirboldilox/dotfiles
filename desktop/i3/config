@@ -240,8 +240,9 @@ assign [class="Thunar"]      4:Tools
 assign [class="pavucontrol"] 4:Tools
 assign [class="Thundirbird"] 4:Tools
 
-assign [class="Skype"]   9:Chat
-assign [class="Pidgin"]  9:Chat
+assign [class="Skype"]      9:Chat
+assign [class="Teamspeak 3"] 9:chat
+assign [class="Pidgin"]     9:Chat
 
 assign [class="banshee"] 10:Music
 
