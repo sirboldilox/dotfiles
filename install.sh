@@ -57,7 +57,7 @@ install_dotfile()
     DOTNAME=$(basename $1)
     DOTLINK="$HOME/.$DOTNAME"
 
-    echo "->Installing $DOTNAME"    
+    echo "-> Installing $DOTNAME"    
 
     # Handle old file
     if [[ -h $DOTLINK ]]; then
@@ -65,10 +65,10 @@ install_dotfile()
         rm $DOTLINK
     elif [[ -e $DOTLINK ]]; then
         if [[ -d $DOTLINK ]]; then 
-            echo " ->Archiving Directory $DOTLINK"
+            echo " -> Archiving Directory $DOTLINK"
             mv $DOTLINK $ARCHIVE/$DOTNAME
         else
-            echo " ->Archiving File: $DOTLINK"
+            echo " -> Archiving File: $DOTLINK"
             mv $DOTLINK $ARCHIVE/$DOTNAME
         fi
     fi
