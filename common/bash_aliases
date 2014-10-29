@@ -1,0 +1,25 @@
+# Bash aliases
+# ------------
+
+# General commands
+alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias ll='ls -lh --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias la='ls -lha --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias grep='grep --color=tty -d skip'
+alias cp='cp -i'                          # confirm before overwriting something
+alias tmux='tmux -f ~/.tmuxrc'
+
+# Monitoring
+alias df='df -h'                          # human-readable sizes
+alias du='du -h'                          # "
+alias free='free'                         # "
+alias ping='ping -c 5'
+
+# Editing
+alias v='vim'
+alias vimrc='$EDITOR ~/.vimrc'
+alias bashrc='$EDITOR ~/.bashrc'
+alias bashali='$EDITOR ~/.bash_aliases && source ~/.bash_aliases'
+
+# Lint
+alias p='pylint -E'

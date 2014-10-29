@@ -3,6 +3,11 @@ if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
 fi
 
+# Source aliases
+if [ -f ~/.bash_aliases ]; then
+        . ~/.bash_aliases
+fi
+
 PATH=$PATH:$HOME/scripts/
 
 xhost +local:root > /dev/null 2>&1
@@ -19,24 +24,15 @@ shopt -s histappend
 shopt -s hostcomplete
 shopt -s nocaseglob
 
+#===============================#
+#   Enviroment Variables        #
+#===============================#
+
 export HISTSIZE=10000
 export HISTFILESIZE=${HISTSIZE}
 export HISTCONTROL=ignoreboth
 
-#===============================#
-# 	Alias            			#
-#===============================#
-
-alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
-alias ll='ls -lh --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
-alias la='ls -lha --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
-alias grep='grep --color=tty -d skip'
-alias cp='cp -i'                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias du='du -h'
-alias free='free -m'                      # show sizes in MB
-alias ping='ping -c 5'
-alias np='nano PKGBUILD'
+export EDITOR=vim
 
 #===============================#
 #	Functions		            #
@@ -66,15 +62,14 @@ ex ()
   fi
 }
 
-# cds - Change directory and list
+# cl - Clear, change directory and list
 # usage: cds <path>
-cds ()
+cl ()
 {
-  if [ -d $1 ]; then
-    cd $1
-    ls ./
+  if [ -e $1 ]; then
+    cd $1 && clear && ll    
   else
-    echo "'$1' does not exist"
+    echo "bash: cl: $1: Directory not found"
   fi
 }
 
@@ -82,10 +77,36 @@ cds ()
 #    Prompt            			#
 #===============================#
 
+# Color defs
+NC='\[\033[m\]'
+RED='\[\033[1;31m\]'
+BLUE='\[\033[1;34m\]'
+CYAN='\[\033[0;36m\]'
+
+
+fancy_prompt()
+{
+    if [[ $? == 0 ]]; then
+        PROMPT_END="$NC\$"
+    else
+        PROMPT_END="$RED\$$NC"
+    fi
+
+    if [[ $(id -u) -eq 0 ]]; then
+        PROMPT_USER="$RED\u$NC"
+    else
+        PROMPT_USER="$CYAN\u$NC"
+    fi
+
+    PS1="$PROMPT_USER $BLUE\w$NC $PROMPT_END "
+}
+
 # Original
 #PS1='[\u@\h \W]$ '
 
 # Custom
-PS1='\[\e[0;36m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;37m\]\$\[\e[m\] \[\e[0m\]'
+#PS1='\[\e[0;36m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;37m\]\$\[\e[m\] \[\e[0m\]'
 #PS1="[\[\e[36m\u\e[0m@\e[37m\h\e[0m\]]$ "
 
+# Color with return code color.
+PROMPT_COMMAND="fancy_prompt"
