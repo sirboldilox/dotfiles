@@ -8,6 +8,11 @@ if [ -f ~/.bash_aliases ]; then
         . ~/.bash_aliases
 fi
 
+# Source Enviroments
+if [ -f ~/.bash_env ]; then
+        . ~/.bash_env
+fi
+
 PATH=$PATH:$HOME/scripts/
 
 xhost +local:root > /dev/null 2>&1
@@ -87,9 +92,9 @@ CYAN='\[\033[0;36m\]'
 fancy_prompt()
 {
     if [[ $? == 0 ]]; then
-        PROMPT_END="$NC\$"
+        PROMPT_END="$NC>"
     else
-        PROMPT_END="$RED\$$NC"
+        PROMPT_END="$RED>$NC"
     fi
 
     if [[ $(id -u) -eq 0 ]]; then

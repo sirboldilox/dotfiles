@@ -1,49 +1,88 @@
- """""""""""""""""""""""""
-" Vimrc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vimrc:
 "
-" Author: MattParker
+" Author: Matt Parker
+"
+" Vundle:
+"   For plugins to work install the following:
+"   git clone https://github.com/gmarik/Vundle.git ~/.vim/bundle/Vundle
 "
 " Plugin List:
-"   a.vim  .c -> .h switcher
+"   gmarik/Vundle           -> Bundle manager
+"   scrooloose/nerdtree     -> File browser
+"   scrooloose/syntastic    -> Syntax checker 
+"   davidhalter/jedi-vim    -> Auto-completion
 "
-""""""""""""""""""""""""""
+"   After adding additional plugins run:
+"     :PluginInstall 
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"======================="
-"  User Interface       " 
-"======================="
+"+=====================+"
+"|  User Interface     |" 
+"+=====================+"
 
-" Remove vi compatibility
-set nocompatible 
+set nocompatible            " Remove vi compatibility
+set number                  " Show line numbers
+set ruler                   " Show current position
+set autoindent              " Indentations
+set expandtab               " Tabs are spaces
+set tabstop=4 shiftwidth=4  " Tab & Indetations = 4 spacesi
+set ignorecase              " Case insensitive search
+set showmatch               " Highligh search matches
+set hls is                  " Update search as typed
+set nowrap                  " Don't wrap text
 
-" Show line numbers
-"set number
+"+=====================+" 
+"|  Colours            |"
+"+=====================+"
 
-" Show current position
-set ruler
+syntax enable               " Syntax highlighting enable
+highlight Comment ctermfg=grey 
+" Readable comments
 
-" Indentations
-set autoindent
+"+=====================+"
+"|  Key Maps           |"
+"+=====================+"
 
-" Tabs are spaces
-set expandtab 
-retab
+nmap r R
 
-" Tab & Indetations = 4 spaces
-set tabstop=4 shiftwidth=4
+"+=====================+"
+"|  Plugins (Bundles)  |"
+"+=====================+"
 
-"=======================" 
-"  Colours              "
-"======================="
+filetype off
 
-" Syntax highlighting enable
-syntax enable
+set rtp+=~/.vim/bundle/Vundle
+call vundle#begin()
 
-" Filetype dependant highlighting
+Plugin 'gmarik/Vundle'          " Let Vundle manage the bundles
+Plugin 'scrooloose/nerdtree'    " File browser
+Plugin 'scrooloose/syntastic'   " Syntax Checker
+Plugin 'davidhalter/jedi-vim'   " Auto-completion
+
+call vundle#end()
+
 filetype on
 
-"======================="
-"  Key Maps             "
-"======================="
+"+=====================+"
+"|  Plugin settings    |"
+"+=====================+"
 
-" Replace mode with "r" or "R" 
-nmap r R
+" Enable visual syntastic 
+"let g:syntastic_check_on_open=1
+"let g:syntastic_enable_signs=1
+
+" Default checkers
+let g:syntastic_puppet_checkers = ['puppetlint']
+
+" Paramaters to syntax checkers
+let g:syntastic_puppet_puppetlint_args = "--no-80chars-check"
+
+"+=====================+"
+"|  Plugin Key Maps    |"
+"+=====================+"
+
+map <F2> :NERDTreeToggle<CR>
+map <F3> :SyntasticCheck<CR>
+map <F4> :Errors<CR>
