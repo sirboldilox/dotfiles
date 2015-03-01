@@ -1,0 +1,21 @@
+
+
+! URXVT Settings
+! --------------
+
+URxvt.scrollBar: flase
+URxvt.perl-ext-common: default,matcher
+
+! Font
+URxvt.font: 9x15
+
+! Colors
+URxvt*background: black
+URxvt*foreground: white
+
+! Clickable URLs
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
+
+
