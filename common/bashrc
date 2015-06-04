@@ -103,7 +103,11 @@ fancy_prompt()
         PROMPT_USER="$CYAN\u$NC"
     fi
 
-    PS1="$PROMPT_USER $BLUE\w$NC $PROMPT_END "
+    if [[ -z $SSH_CLIENT ]]; then
+        PS1="$PROMPT_USER $BLUE\w$NC $PROMPT_END "
+    else
+        PS1="$PROMPT_USER@$RED\h $BLUE\w$NC $PROMPT_END "
+    fi
 }
 
 # Original
