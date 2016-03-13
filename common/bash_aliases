@@ -10,7 +10,7 @@ alias cp='cp -i'                          # confirm before overwriting something
 alias tmux='tmux -f ~/.tmuxrc'
 
 # Monitoring
-alias df='df -h'                          # human-readable sizes
+alias df='df -Th'                         # human-readable sizes
 alias du='du -h'                          # "
 alias free='free'                         # "
 alias ping='ping -c 5'
