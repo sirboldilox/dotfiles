@@ -1,3 +1,5 @@
+# bashrc    -   Personal BASH configuration
+
 # Source Global Bash Completion
 if [ -f /etc/bash_completion ]; then
 	    . /etc/bash_completion
@@ -8,16 +10,15 @@ if [ -f ~/.bash_aliases ]; then
         . ~/.bash_aliases
 fi
 
-# Source Enviroments
-if [ -f ~/.bash_env ]; then
-        . ~/.bash_env
-fi
-
-PATH=$PATH:$HOME/scripts/
+# PATH
+PATH=$PATH:/sbin:/usr/sbin
+PATH=$PATH:$HOME/.local/bin
 
 xhost +local:root > /dev/null 2>&1
 
-complete -cf sudo
+#===============================#
+#   Options                     #
+#===============================#
 
 shopt -s cdspell
 shopt -s checkwinsize
@@ -67,17 +68,6 @@ ex ()
   fi
 }
 
-# cl - Clear, change directory and list
-# usage: cds <path>
-cl ()
-{
-  if [ -e $1 ]; then
-    cd $1 && clear && ll    
-  else
-    echo "bash: cl: $1: Directory not found"
-  fi
-}
-
 # Coloured man pages
 # https://wiki.archlinux.org/index.php/Man_page
 man() {
@@ -95,7 +85,7 @@ man() {
 #    Prompt            			#
 #===============================#
 
-# Color defs
+# Colour defs
 NC='\[\033[m\]'
 RED='\[\033[1;31m\]'
 BLUE='\[\033[1;34m\]'
@@ -123,12 +113,5 @@ fancy_prompt()
     fi
 }
 
-# Original
-#PS1='[\u@\h \W]$ '
-
-# Custom
-#PS1='\[\e[0;36m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;37m\]\$\[\e[m\] \[\e[0m\]'
-#PS1="[\[\e[36m\u\e[0m@\e[37m\h\e[0m\]]$ "
-
-# Color with return code color.
+# Colour with return code color.
 PROMPT_COMMAND="fancy_prompt"
