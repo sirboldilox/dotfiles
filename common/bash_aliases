@@ -7,7 +7,6 @@ alias ll='ls -lh --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --colo
 alias la='ls -lha --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto'
 alias grep='grep --color=tty -d skip'
 alias cp='cp -i'                          # confirm before overwriting something
-alias tmux='tmux -f ~/.tmuxrc'
 
 # Monitoring
 alias df='df -Th'                         # human-readable sizes
