@@ -8,14 +8,11 @@
 readonly SCRIPTNAME=$(basename $0)
 readonly SCRIPTDIR=$(dirname $(readlink -f $0))
 
-
 # Script Paramaters
+DOTROOT=$SCRIPTDIR              # Dot file root
+DOTGROUP=""                     # Group to install
+ARCHIVE="$DOTROOT/archived"     # Archive folder
 
-DOTROOT=$SCRIPTDIR       # Dot file root
-DOTGROUP=""              # Group to install
-ARCHIVE="$DOTROOT/archived"
-
-# Functions
 
 usage() 
 {
@@ -28,13 +25,6 @@ eerror()
     exit
 }
 
-# Check arguments
-
-# Parse and setup arguments
-
-    # check if dotfile exists
-    # remove if symbolic link, archeive if not
-    # install new symbolic link
 install_group()
 {
     readonly GROUP=$1
@@ -44,17 +34,14 @@ install_group()
 
     for FILE in $GROUPDIR/*
       do
-        install_dotfile $FILE
+        install_dotfile "$FILE"
       done
 }
 
-
-# Installs the dotfile passed
-#   $1: name of the dotfile in the group
 install_dotfile()
 {
-    DOTFILE=$1
-    DOTNAME=$(basename $1)
+    DOTFILE=$1                    
+    DOTNAME=$(basename "$DOTFILE")
     DOTLINK="$HOME/.$DOTNAME"
 
     echo "-> Installing $DOTNAME"    
@@ -62,40 +49,32 @@ install_dotfile()
     # Handle old file
     if [[ -h $DOTLINK ]]; then
     	echo " -> Removing: $DOTLINK"
-        rm $DOTLINK
+        rm "$DOTLINK"
     elif [[ -e $DOTLINK ]]; then
         if [[ -d $DOTLINK ]]; then 
             echo " -> Archiving Directory $DOTLINK"
-            mv $DOTLINK $ARCHIVE/$DOTNAME
+            mv "$DOTLINK" "$ARCHIVE/$DOTNAME"
         else
             echo " -> Archiving File: $DOTLINK"
-            mv $DOTLINK $ARCHIVE/$DOTNAME
+            mv "$DOTLINK" "$ARCHIVE/$DOTNAME"
         fi
     fi
 
     echo " -> Linking $DOTNAME"
-    ln -s $DOTFILE $DOTLINK 
+    ln -s "$DOTFILE" "$DOTLINK" 
 }
 
 # Main
-if [[ $# < 1 ]]; then
+if [[ $# -lt 1 ]]; then
     usage
     exit
 fi
 
 DOTGROUP=$1
-mkdir -p $ARCHIVE
+mkdir -p "$ARCHIVE"
 
 if [[ -d $DOTROOT/$DOTGROUP ]]; then
     install_group "$DOTGROUP"
 else
     eerror "Folder: $DOTGROUP does not exist"
 fi
-
-
-
-
-
-
-
-
