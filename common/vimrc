@@ -38,7 +38,7 @@ set nowrap                  " Don't wrap text
 "+=====================+"
 
 syntax enable               " Syntax highlighting enable
-highlight Comment ctermfg=grey 
+highlight Comment ctermfg=blue 
 " Readable comments
 
 "+=====================+"
